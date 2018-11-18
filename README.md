@@ -334,6 +334,36 @@ Plugin 'octol/vim-cpp-enhanced-highlight'
 
 通过 vundle 管理插件后，切勿通过发行套件自带的软件管理工具安装任何插件，不然 .vim/ 又要混乱了。
 
+## 编译YouCompleteMe
+然后你再次打开vim，会发现下方会提示一个红色的错误
+```
+YouCompleteMe unavailable: No module named builtins
+```
+
+这是因为YouCompleteMe和其他插件不同，它是一个需要编译的插件，接下来我们编译它(确保文章前的依赖已经安装完成)
+```
+cd /home/null/.vim/bundle/YouCompleteMe
+git submodule update --init --recursive
+ python install.py
+
+# python ./install.py --clang-completer  # 如果你的vim需要c语言跳转支持则加上--clang-completer
+```
+编译完成后vim配置就算完成了
+
+有些童鞋可能打开后会发现下方又报了个错：
+```
+Tagbar: Exuberant ctags not found!
+```
+这是因为tagbar是依赖于ctags的，所以我们需要安装ctags，去http://ctags.sourceforge.net/下载ctags源码包，并编译安装即可
+
+```
+wget https://nchc.dl.sourceforge.net/project/ctags/ctags/5.8/ctags-5.8.tar.gz
+tar xzfv ctags-5.8.tar.gz
+cd ctags-5.8/
+./configure
+make
+sudo make install
+```
 <h2 name="3">3 界面美化</h2>
 
 玉不琢不成器，vim 不配不算美。刚安装好的 vim 朴素得吓人，这是与我同时代的软件么？
